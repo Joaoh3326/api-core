@@ -7,6 +7,9 @@ curl localhost:3000/heroes
 echo '\n\n requesting flash'
 curl localhost:3000/heroes/1
 
+echo '\n\n requesting when hero not exists'
+curl localhost:3000/heroes/2
+
 echo '\n\n requesting with wrong body'
 curl --silent -X POST \
     --data-binary '{"invalid": "data"}' \
@@ -15,6 +18,10 @@ curl --silent -X POST \
 echo '\n\n delete Flash'
 curl --silent -X DELETE \
     localhost:3000/heroes/1
+
+echo '\n\n delete when hero not exists'
+curl --silent -X DELETE \
+    localhost:3000/heroes/2
 
 echo '\n\n creating Chapolin'
 CREATE=$(curl --silent -X POST \
@@ -31,6 +38,11 @@ echo '\n\n update Chapolin'
 curl --silent -X PUT \
     --data-binary '{"age": "150"}' \
     localhost:3000/heroes/$ID
+
+echo '\n\n update Chapolin'
+curl --silent -X PUT \
+    --data-binary '{"age": "150"}' \
+    localhost:3000/heroes/2
 
 echo '\n\n clear teste'
 echo '[{"id":1,"name":"flash","age":"100","power":"speed"}]' > database/data.json

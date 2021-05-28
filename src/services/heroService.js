@@ -1,3 +1,6 @@
+const { Validations } = require('../infra')
+const validations = new Validations()
+
 class HeroService {
   constructor({ heroRepository }) {
     this.heroRepository = heroRepository
@@ -13,6 +16,10 @@ class HeroService {
 
   async update(heroId, data) {
     const hero = await this.heroRepository.find(heroId)
+
+    if (validations.isUndefined(hero)) {
+      return []
+    }
 
     const propertyNames = Object.getOwnPropertyNames(data)
     propertyNames.forEach(property => {
